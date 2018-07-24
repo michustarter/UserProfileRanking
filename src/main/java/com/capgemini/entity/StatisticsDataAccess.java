@@ -1,16 +1,16 @@
-package com.capgemini.dataAccess;
+package com.capgemini.entity;
 
 
 public class StatisticsDataAccess {
 
-	private Level level;
+	private LevelDataAccess level;
 	private int points;
 	private int gamesPlayed;
 	private int gamesWon;
-	private int gamesDrawn;
+	//private int gamesDrawn;
 	private int gamesLost;
 	
-	public StatisticsDataAccess(Level level, int points, int gamesPlayed, int gamesWon, int gamesDrawn, int gamesLost) {
+	public StatisticsDataAccess(LevelDataAccess level, int points, int gamesPlayed, int gamesWon, int gamesDrawn, int gamesLost) {
 		this.level=level;
 		this.points=points;
 		this.gamesPlayed=gamesPlayed;
@@ -18,11 +18,11 @@ public class StatisticsDataAccess {
 		this.gamesLost=gamesLost;
 	}
 
-	public Level getLevel() {
+	public LevelDataAccess getLevel() {
 		return level;
 	}
 
-	public void setLevel(Level level) {
+	public void setLevel(LevelDataAccess level) {
 		this.level = level;
 	}
 

@@ -2,18 +2,18 @@ package com.capgemini.repository;
 
 import java.util.HashSet;
 
-import com.capgemini.dataAccess.BoardGamesDataAccess;
+import com.capgemini.entity.GamesCollectionDataAccess;
 
 public class BoardGamesRepository {
 
-	HashSet<BoardGamesDataAccess> gamesSet = new HashSet<>();
+	HashSet<GamesCollectionDataAccess> gamesSet = new HashSet<>();
 
 	public void createGamesSet() { // to jednak w dataAccess ??? ale muszé to dac do metody ?? 
-		gamesSet.add(new BoardGamesDataAccess("Chess", 10, 2));
-		gamesSet.add(new BoardGamesDataAccess("Monopoly", 16, 5));
-		gamesSet.add(new BoardGamesDataAccess("Splendor", 8, 1));
-		gamesSet.add(new BoardGamesDataAccess("Cortex", 12, 3));
-		gamesSet.add(new BoardGamesDataAccess("Dixit", 20, 4));
+		gamesSet.add(new GamesCollectionDataAccess("Chess", 10, 2));
+		gamesSet.add(new GamesCollectionDataAccess("Monopoly", 16, 5));
+		gamesSet.add(new GamesCollectionDataAccess("Splendor", 8, 1));
+		gamesSet.add(new GamesCollectionDataAccess("Cortex", 12, 3));
+		gamesSet.add(new GamesCollectionDataAccess("Dixit", 20, 4));
 	}
 
 	/*
