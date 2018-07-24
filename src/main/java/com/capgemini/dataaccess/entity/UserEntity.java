@@ -1,13 +1,16 @@
-package com.capgemini.entity;
+package com.capgemini.dataaccess.entity;
 
-public class UserDataAccess {
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserEntity {
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 	private String lifeMotto;
-
-	public UserDataAccess(String firstName, String lastName, String email, String password, String lifeMotto) {
+	
+	public UserEntity(String firstName, String lastName, String email, String password, String lifeMotto) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email=email;

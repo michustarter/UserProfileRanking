@@ -1,14 +1,22 @@
 package com.capgemini.service;
 
-import com.capgemini.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.capgemini.dataaccess.repository.UserDAO;
+
+@Service
 public class UserService {
-	/**
-	 * tu metody z logiką dla Usera... - czyli wyliczanie statystyk dla danego użytkownika, patrzec na metody jak dla 1 usera bym liczył (parametr user) typ zwracany return 
-	 * 
-	 */
 	
-	public void addAvailabilityHours(UserRepository user) { // np user o nazwie Michal1234 dodaję tutaj
+	private UserDAO userDAO;
+	
+	@Autowired
+	public UserService(UserDAO userDAO) {
+		this.userDAO=userDAO;
+	}
+	
+	
+	public void addAvailabilityHours(UserDAO userDAO) { // np user o nazwie Michal1234 dodaję tutaj
 	//	us
 		
 	}
