@@ -16,7 +16,7 @@ public class UserService {
 	}
 	
 	
-	public void addAvailabilityHours(UserDAO userDAO) { // np user o nazwie Michal1234 dodaję tutaj
+	public void addAvailabilityHours(UserDAO userDAO) { //DTO==== np user o nazwie Michal1234 dodaję tutaj
 	//	us
 		
 	}

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlayedGamesEntity {
 
-	private UserEntity winner;
+	private UserEntity winner; // dawać tu UserEntity czy jednak String winnerID..?
 	private UserEntity lost;
 	private BoardGameEntity game;
 

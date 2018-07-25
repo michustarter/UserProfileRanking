@@ -8,10 +8,6 @@ public class ChallengeEntity {
 	private UserEntity challengeThrownFrom;
 	private UserEntity receivedChallenge;
 	private BoardGameEntity boardGame;
-	/*
-	 * w logice biznesowej wyszukc pooodbny czas dostepnosci i gry - to zwrócić
-	 * obiekt moze typu DTO..DAO
-	 */
 
 	public ChallengeEntity(UserEntity challengeThrownFrom, UserEntity receivedChallenge, BoardGameEntity boardGame) {
 		this.challengeThrownFrom = challengeThrownFrom;

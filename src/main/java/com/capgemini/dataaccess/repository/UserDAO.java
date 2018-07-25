@@ -1,51 +1,57 @@
 package com.capgemini.dataaccess.repository;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.dataaccess.entity.UserEntity;
+import com.capgemini.exceptions.NullUsersException;
 
 @Repository
 public class UserDAO {
 
-	private UserEntity userEntity;
+	private Map<String, UserEntity> usersMap;
 
-	private Set<UserEntity> userSet;// = new HashSet<>();
+	public UserDAO() {
+		usersMap = new HashMap<>();
 
-	@Autowired
-	public UserDAO(UserEntity userEntity) {
-		this.userEntity = userEntity;
-		userSet = new HashSet<>();
-		userSet.add(new UserEntity("Jakub", "Jasiński", "jakub@gmail.com", "ergdse54", "Do boju!"));
 	}
 
-	// public czy private?
 	public void createUsers() {
-		userSet.add(new UserEntity("Michal", "Rataj", "michal@wp.pl", "qwerty12", "Wstawaj i walcz!"));
-		userSet.add(new UserEntity("Krzysztof", "Zieliński", "krzysiek@onet.pl", "ytrdx2", "Jestem zwyciezca!"));
-		userSet.add(new UserEntity("Monika", "Stróżewska", "monika@interia.pl", "gvcdgf04040", "Walczę do końca!"));
-		// userSet.add(new UserEntity("Jakub", "Jasiński", "jakub@gmail.com",
-		// "ergdse54", "Do boju!"));
 
+		usersMap.put("michal@wp.pl", new UserEntity("Michal", "Rataj", "michal@wp.pl", "qwerty12", "Wstawaj i walcz!"));
+		usersMap.put("krzysiek@onet.pl",
+				new UserEntity("Krzysztof", "Zieliński", "krzysiek@onet.pl", "ytrdx2", "Jestem zwyciezca!"));
+		usersMap.put("monika@interia.pl",
+				new UserEntity("Monika", "Stróżewska", "monika@interia.pl", "gvcdgf04040", "Walczę do końca!"));
+		usersMap.put("jakub@gmail.com", new UserEntity("Jakub", "Jasiński", "jakub@gmail.com", "ergdse54", "Do boju!"));
+		usersMap.put("jaca@wpw.pl", new UserEntity("Jacek", "Placek", "jaca@wpw.pl", "234rtgvd", "Aaaaaaaaa!!!"));
 	}
 
-	public UserEntity getUserEntity() {
-		return userEntity;
+	public Set<UserEntity> getUsersEntity() {
+		return usersMap.values().stream().collect(Collectors.toSet());
 	}
 
-	public void setUserEntity(UserEntity userEntity) {
-		this.userEntity = userEntity;
+	public UserEntity findUserByEmail(String email) throws NullUsersException {
+		if (!(usersMap.keySet().contains(email))) {
+			throw new NullUsersException();
+		}
+
+		return usersMap.get(email);
 	}
 
-	public Set<UserEntity> getUserSet() {
-		return userSet;
+	public int checkNumberOfUsers() {
+		return usersMap.size();
 	}
 
-	public void setUserSet(Set<UserEntity> userSet) {
-		this.userSet = userSet;
+	public void modifyUserEntity(UserEntity user) {
+		usersMap.put(user.getEmail(), user);
 	}
 
+	public void addNewUserEntity(UserEntity user) {
+		usersMap.put(user.getEmail(), user);
+	}
 }

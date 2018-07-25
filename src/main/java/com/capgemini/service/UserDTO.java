@@ -1,24 +1,23 @@
-package com.capgemini.dataaccess.entity;
+package com.capgemini.service;
 
-import org.springframework.stereotype.Component;
+import com.capgemini.enums.Level;
 
-@Component
-public class UserEntity {
+public class UserDTO {
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 	private String lifeMotto;
+	private Level level;
 
-	public UserEntity() {
-	}
-
-	public UserEntity(String firstName, String lastName, String email, String password, String lifeMotto) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.lifeMotto = lifeMotto;
+	public UserDTO() {
+		this.firstName = "";
+		this.lastName = "";
+		this.email = "";
+		this.password = "";
+		this.lifeMotto = "";
+		this.level = Level.NEWBIE;
 	}
 
 	public String getFirstName() {
@@ -60,5 +59,15 @@ public class UserEntity {
 	public void setLifeMotto(String lifeMotto) {
 		this.lifeMotto = lifeMotto;
 	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+	
+	
 
 }
