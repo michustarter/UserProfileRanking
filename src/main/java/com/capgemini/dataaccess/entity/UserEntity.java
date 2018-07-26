@@ -11,7 +11,7 @@ public class UserEntity {
     private String email;
     private String password;
     private String lifeMotto;
-    private Set<GameEntity> games;
+    private Set<GameEntity> gamesSet;
     private Instant availableFrom;
     private Instant availableTo;
     private String noAvailabilityComment;
@@ -20,14 +20,14 @@ public class UserEntity {
     }
 
     public UserEntity(Long id, String firstName, String lastName, String email, String password, String lifeMotto,
-                      Set<GameEntity> games, Instant availableFrom, Instant availableTo, String noAvailabilityComment) {
+                      Set<GameEntity> gamesSet, Instant availableFrom, Instant availableTo, String noAvailabilityComment) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.lifeMotto = lifeMotto;
-        this.games = games;
+        this.gamesSet = gamesSet;
         this.availableFrom = availableFrom;
         this.availableTo = availableTo;
         this.noAvailabilityComment = noAvailabilityComment;
@@ -81,12 +81,12 @@ public class UserEntity {
         this.lifeMotto = lifeMotto;
     }
 
-    public Set<GameEntity> getGames() {
-        return games;
+    public Set<GameEntity> getGamesSet() {
+        return gamesSet;
     }
 
-    public void setGames(Set<GameEntity> games) {
-        this.games = games;
+    public void setGamesSet(Set<GameEntity> gamesSet) {
+        this.gamesSet = gamesSet;
     }
 
     public Instant getAvailableFrom() {
@@ -126,7 +126,7 @@ public class UserEntity {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (lifeMotto != null ? !lifeMotto.equals(that.lifeMotto) : that.lifeMotto != null) return false;
-        if (games != null ? !games.equals(that.games) : that.games != null) return false;
+        if (gamesSet != null ? !gamesSet.equals(that.gamesSet) : that.gamesSet != null) return false;
         if (availableFrom != null ? !availableFrom.equals(that.availableFrom) : that.availableFrom != null)
             return false;
         if (availableTo != null ? !availableTo.equals(that.availableTo) : that.availableTo != null) return false;
@@ -141,7 +141,7 @@ public class UserEntity {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (lifeMotto != null ? lifeMotto.hashCode() : 0);
-        result = 31 * result + (games != null ? games.hashCode() : 0);
+        result = 31 * result + (gamesSet != null ? gamesSet.hashCode() : 0);
         result = 31 * result + (availableFrom != null ? availableFrom.hashCode() : 0);
         result = 31 * result + (availableTo != null ? availableTo.hashCode() : 0);
         result = 31 * result + (noAvailabilityComment != null ? noAvailabilityComment.hashCode() : 0);
@@ -157,7 +157,7 @@ public class UserEntity {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", lifeMotto='" + lifeMotto + '\'' +
-                ", games=" + games.size() +
+                ", games=" + gamesSet.size() +
                 ", availableFrom=" + availableFrom +
                 ", availableTo=" + availableTo +
                 ", noAvailabilityComment='" + noAvailabilityComment + '\'' +

@@ -2,10 +2,14 @@ package com.capgemini.mappers;
 
 import org.springframework.stereotype.Component;
 
+import com.capgemini.dataaccess.entity.PlayedGameEntity;
 import com.capgemini.service.PlayedGameDTO;
 
 @Component
 public class PlayedGameMapper implements MapperInterface<PlayedGameEntity, PlayedGameDTO> {
+
+	private GameMapper gameMapper;
+	private UserMapper userMapper;
 
 	@Override
 	public PlayedGameDTO mapToDTOfromEntity(PlayedGameEntity playedGameEntity) {
@@ -16,11 +20,9 @@ public class PlayedGameMapper implements MapperInterface<PlayedGameEntity, Playe
 
 		PlayedGameDTO playedGameDTO = new PlayedGameDTO();
 		playedGameDTO.setId(playedGameEntity.getId());
-		playedGameDTO.setGame(playedGameEntity.getGame());
-		playedGameDTO.setWinner(playedGameEntity.getWinner());
-		playedGameDTO.setLost(playedGameEntity.getLost());
-		playedGameDTO.setWinnerLevel(playedGameEntity.getWinnerLevel());
-		playedGameDTO.setLostLevel(playedGameEntity.getLostLevel());
+		playedGameDTO.setGame(gameMapper.mapToDTOfromEntity(playedGameEntity.getGame()));
+		playedGameDTO.setWinner(userMapper.mapToDTOfromEntity(playedGameEntity.getWinner()));
+		playedGameDTO.setLost(userMapper.mapToDTOfromEntity(playedGameEntity.getLost()));
 
 		return playedGameDTO;
 
@@ -35,11 +37,9 @@ public class PlayedGameMapper implements MapperInterface<PlayedGameEntity, Playe
 
 		PlayedGameEntity playedGameEntity = new PlayedGameEntity();
 		playedGameEntity.setId(playedGameDTO.getId());
-		playedGameEntity.setGame(playedGameDTO.getGame());
-		playedGameEntity.setWinner(playedGameDTO.getWinner());
-		playedGameEntity.setLost(playedGameDTO.getLost());
-		playedGameEntity.setWinnerLevel(playedGameDTO.getWinnerLevel());
-		playedGameEntity.setLostLevel(playedGameDTO.getLostLevel());
+		playedGameEntity.setGame(gameMapper.mapToEntityFromDTO(playedGameDTO.getGame()));
+		playedGameEntity.setWinner(userMapper.mapToEntityFromDTO(playedGameDTO.getWinner()));
+		playedGameEntity.setLost(userMapper.mapToEntityFromDTO(playedGameDTO.getLost()));
 		return playedGameEntity;
 
 	}

@@ -62,8 +62,8 @@ public class UserDAO extends AdapterCrudDAO<UserEntity, Long> { // lepiej nie ex
 		if (userEntity.getLifeMotto() != null) {
 			updatedUser.setLifeMotto(userEntity.getLifeMotto());
 		}
-		if (userEntity.getGames() != null) {
-			updatedUser.setGames(userEntity.getGames());
+		if (userEntity.getGamesSet() != null) {
+			updatedUser.setGamesSet(userEntity.getGamesSet());
 		}
 		if (userEntity.getAvailableFrom() != usersMap.get(idOfUpdate).getAvailableFrom()
 				|| userEntity.getAvailableTo() != usersMap.get(idOfUpdate).getAvailableTo()

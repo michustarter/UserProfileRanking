@@ -7,6 +7,7 @@ import com.capgemini.service.GameDTO;
 
 @Component
 public class GameMapper implements MapperInterface<GameEntity, GameDTO> {
+	
 
 	@Override
 	public GameDTO mapToDTOfromEntity(GameEntity gameEntity) {
@@ -17,8 +18,7 @@ public class GameMapper implements MapperInterface<GameEntity, GameDTO> {
 
 		GameDTO gameDTO = new GameDTO();
 		gameDTO.setId(gameEntity.getId());
-		gameDTO.setGameType(gameEntity.getGameType());
-		gameDTO.setPlayedGames(gameEntity.getPlayedGames());
+		gameDTO.setTitle(gameEntity.getTitle());
 
 		return gameDTO;
 
@@ -33,8 +33,7 @@ public class GameMapper implements MapperInterface<GameEntity, GameDTO> {
 
 		GameEntity gameEntity = new GameEntity();
 		gameEntity.setId(gameDTO.getId());
-		gameEntity.setGameType(gameDTO.getGameType());
-		gameEntity.setPlayedGames(gameDTO.getPlayedGames());
+		gameEntity.setTitle(gameEntity.getTitle());
 
 		return gameEntity;
 

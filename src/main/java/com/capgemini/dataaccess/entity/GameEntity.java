@@ -1,51 +1,37 @@
 package com.capgemini.dataaccess.entity;
 
-import java.util.Set;
-
 public class GameEntity {
 
-    private Long id;
-    private GameTypeEntity gameType;
-    private Set<PlayedGameEntity> playedGames;
-   
+	private Long id;
+	private String title;
 
-    public GameEntity() {}
+	public GameEntity() {
+	}
 
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public GameTypeEntity getGameType() {
-        return gameType;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setGameType(GameTypeEntity gameType) {
-        this.gameType = gameType;
-    }
-
-    public Set<PlayedGameEntity> getPlayedGames() {
-        return playedGames;
-    }
-
-    public void setPlayedGames(Set<PlayedGameEntity> playedGames) {
-        this.playedGames = playedGames;
-    }
-
-    @Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((gameType == null) ? 0 : gameType.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((playedGames == null) ? 0 : playedGames.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -56,31 +42,24 @@ public class GameEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		GameEntity other = (GameEntity) obj;
-		if (gameType == null) {
-			if (other.gameType != null)
-				return false;
-		} else if (!gameType.equals(other.gameType))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (playedGames == null) {
-			if (other.playedGames != null)
+		if (title == null) {
+			if (other.title != null)
 				return false;
-		} else if (!playedGames.equals(other.playedGames))
+		} else if (!title.equals(other.title))
 			return false;
 		return true;
 	}
 
-
 	@Override
-    public String toString() {
-        return "GameEntity{" +
-                "id=" + id +
-                ", gameType=" + gameType.getTitle() +
-                ", playedGames=" + playedGames.size() +
-                '}';
-    }
+	public String toString() {
+		return "GameEntity [id=" + id + ", title=" + title + "]";
+	}
+
+	
+	
 }

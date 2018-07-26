@@ -1,25 +1,23 @@
 package com.capgemini.service;
 
-import com.capgemini.dataaccess.entity.GameEntity;
-import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.enums.Level;
-
 public class PlayedGameDTO {
 
 	private Long id;
-	private GameEntity game;
-	private UserEntity winner;
-	private UserEntity lost;
-	private Level winnerLevel;
-	private Level lostLevel;
+	private GameDTO game;
+	private UserDTO winner;
+	private UserDTO lost;
+	/*
+	 * private Level winnerLevel; private Level lostLevel;
+	 */
 
 	public PlayedGameDTO() {
-		this.id=null;
-		this.game=null;
-		this.winner=null;
-		this.lost=null;
-		this.winnerLevel=Level.NEWBIE;
-		this.lostLevel=Level.NEWBIE;
+		this.id = null;
+		this.game = null;
+		this.winner = null;
+		this.lost = null;
+		/*
+		 * this.winnerLevel=Level.NEWBIE; this.lostLevel=Level.NEWBIE;
+		 */
 	}
 
 	public Long getId() {
@@ -30,47 +28,29 @@ public class PlayedGameDTO {
 		this.id = id;
 	}
 
-
-	public GameEntity getGame() {
+	public GameDTO getGame() {
 		return game;
 	}
 
-	public void setGame(GameEntity game) {
+	public void setGame(GameDTO game) {
 		this.game = game;
 	}
 
-	public UserEntity getWinner() {
+	public UserDTO getWinner() {
 		return winner;
 	}
 
-	public void setWinner(UserEntity winner) {
+	public void setWinner(UserDTO winner) {
 		this.winner = winner;
 	}
 
-	public UserEntity getLost() {
+	public UserDTO getLost() {
 		return lost;
 	}
 
-	public void setLost(UserEntity lost) {
+	public void setLost(UserDTO lost) {
 		this.lost = lost;
 	}
-
-	public Level getWinnerLevel() {
-		return winnerLevel;
-	}
-
-	public void setWinnerLevel(Level winnerLevel) {
-		this.winnerLevel = winnerLevel;
-	}
-
-	public Level getLostLevel() {
-		return lostLevel;
-	}
-
-	public void setLostLevel(Level lostLevel) {
-		this.lostLevel = lostLevel;
-	}
-	
 
 	@Override
 	public int hashCode() {
@@ -79,9 +59,7 @@ public class PlayedGameDTO {
 		result = prime * result + ((game == null) ? 0 : game.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lost == null) ? 0 : lost.hashCode());
-		result = prime * result + ((lostLevel == null) ? 0 : lostLevel.hashCode());
 		result = prime * result + ((winner == null) ? 0 : winner.hashCode());
-		result = prime * result + ((winnerLevel == null) ? 0 : winnerLevel.hashCode());
 		return result;
 	}
 
@@ -109,24 +87,17 @@ public class PlayedGameDTO {
 				return false;
 		} else if (!lost.equals(other.lost))
 			return false;
-		if (lostLevel != other.lostLevel)
-			return false;
 		if (winner == null) {
 			if (other.winner != null)
 				return false;
 		} else if (!winner.equals(other.winner))
 			return false;
-		if (winnerLevel != other.winnerLevel)
-			return false;
 		return true;
 	}
 
 	@Override
-    public String toString() {
-        return "PlayedGameEntity{" +
-                "id=" + id +
-                ", game=" + game.getGameType().getTitle() +
-                ", winner=" + winner +
-                ", lost=" + lost + ", winnerLevel = " + winnerLevel +", lostLevel = " + lostLevel+ " }";
-    }
+	public String toString() {
+		return "PlayedGameDTO [id=" + id + ", game=" + game + ", winner=" + winner + ", lost=" + lost + "]";
+	}
+
 }
