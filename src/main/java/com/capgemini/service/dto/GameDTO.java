@@ -7,7 +7,7 @@ public class GameDTO {
 
 	public GameDTO() {
 		this.id = null;
-		this.title="";
+		this.title = "";
 	}
 
 	public Long getId() {
@@ -61,6 +61,5 @@ public class GameDTO {
 	public String toString() {
 		return "GameDTO [id=" + id + ", title=" + title + "]";
 	}
-
 
 }

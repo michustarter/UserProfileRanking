@@ -97,7 +97,7 @@ public class UserDAO implements CrudDAO<UserEntity, Long> {
 	public void deleteAvailability(Long userID) {
 		usersMap.get(userID).setAvailableFrom(null);
 		usersMap.get(userID).setAvailableTo(null);
-		usersMap.get(userID).setNoAvailabilityComment("Nie mam czasu.");
+		usersMap.get(userID).setNoAvailabilityComment("I have no time.");
 	}
 
 	public Set<UserEntity> getUsers() {

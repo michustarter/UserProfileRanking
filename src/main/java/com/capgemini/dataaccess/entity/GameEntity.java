@@ -7,9 +7,10 @@ public class GameEntity {
 
 	public GameEntity() {
 	}
-	public GameEntity(Long id, String tile) {
-		this.id=id;
-		this.title=tile;
+
+	public GameEntity(Long id, String title) {
+		this.id = id;
+		this.title = title;
 	}
 
 	public Long getId() {
@@ -64,6 +65,4 @@ public class GameEntity {
 		return "GameEntity [id=" + id + ", title=" + title + "]";
 	}
 
-	
-	
 }

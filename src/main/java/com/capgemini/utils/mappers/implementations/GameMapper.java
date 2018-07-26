@@ -1,10 +1,10 @@
 package com.capgemini.utils.mappers.implementations;
 
+import com.capgemini.utils.mappers.Mapper;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.service.dto.GameDTO;
-import com.capgemini.utils.mappers.Mapper;
 
 @Component
 public class GameMapper implements Mapper<GameEntity, GameDTO> {

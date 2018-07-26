@@ -10,6 +10,13 @@ public class PlayedGameEntity {
 	public PlayedGameEntity() {
 	}
 
+	public PlayedGameEntity(Long id, GameEntity game, UserEntity winner, UserEntity lost) {
+		this.id = id;
+		this.game = game;
+		this.winner = winner;
+		this.lost = lost;
+	}
+
 	public Long getId() {
 		return id;
 	}

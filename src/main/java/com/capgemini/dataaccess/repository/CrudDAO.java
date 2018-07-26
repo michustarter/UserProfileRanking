@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface CrudDAO<T, PK> {
 
-	T save(T t);
+    T save(T t);
 
-	T findByID(PK primaryKey);
+    T findByID(PK primaryKey);
 
-	T update(T t);
+    T update(T t);
 
-	void delete(PK primaryKey);
+    void delete(PK primaryKey);
 
-	List<T> findAll();
+    List<T> findAll();
 }

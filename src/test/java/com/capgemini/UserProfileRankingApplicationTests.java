@@ -10,7 +10,5 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class UserProfileRankingApplicationTests {
 
 	@Test
-	public void contextLoads() {
-	}
-
+	public void contextLoader() {}
 }

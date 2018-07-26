@@ -12,22 +12,26 @@ public class UserDTO {
 	private String email;
 	private String password;
 	private String lifeMotto;
-	private Set<GameDTO> gamesSet;
+	private Set<GameDTO> gamesSet = new HashSet<>();
 	private Instant availableFrom;
 	private Instant availableTo;
 	private String noAvailabilityComment;
 
 	public UserDTO() {
-		this.id = null;
-		this.firstName = "";
-		this.lastName = "";
-		this.email = "";
-		this.password = "";
-		this.lifeMotto = "";
-		this.gamesSet = new HashSet<>();
-		this.availableFrom = null;
-		this.availableTo = null;
-		this.noAvailabilityComment = "";
+	}
+
+	public UserDTO(Long id, String firstName, String lastName, String email, String password, String lifeMotto,
+			Set<GameDTO> gamesSet, Instant availableFrom, Instant availableTo, String noAvailabilityComment) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.lifeMotto = lifeMotto;
+		this.gamesSet = gamesSet;
+		this.availableFrom = availableFrom;
+		this.availableTo = availableTo;
+		this.noAvailabilityComment = noAvailabilityComment;
 	}
 
 	public Long getId() {
