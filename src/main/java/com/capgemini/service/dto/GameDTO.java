@@ -1,4 +1,4 @@
-package com.capgemini.service;
+package com.capgemini.service.dto;
 
 public class GameDTO {
 

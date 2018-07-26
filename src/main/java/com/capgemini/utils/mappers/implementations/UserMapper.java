@@ -1,34 +1,38 @@
-package com.capgemini.mappers;
+package com.capgemini.utils.mappers.implementations;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
+import com.capgemini.utils.mappers.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.service.GameDTO;
-import com.capgemini.service.UserDTO;
+import com.capgemini.service.dto.GameDTO;
+import com.capgemini.service.dto.UserDTO;
 
 @Component
-public class UserMapper implements MapperInterface<UserEntity, UserDTO> {
-	
-	private GameMapper gameMapper = new GameMapper();
+public class UserMapper implements Mapper<UserEntity, UserDTO> {
+
+	private final GameMapper gameMapper;
+
+	@Autowired
+	public UserMapper(GameMapper gameMapper) {
+		this.gameMapper = gameMapper;
+	}
 
 	@Override
-	public UserDTO mapToDTOfromEntity(UserEntity userEntity) {
-
+	public UserDTO mapToDTO(UserEntity userEntity) {
 		if (userEntity == null) {
-			return null;
+			throw new NullPointerException("Cannot map null object.");
 		}
-		
-		Set<GameDTO> setFromGameEntity= new HashSet<>();
-		Iterator<GameEntity> iterator=userEntity.getGamesSet().iterator();
-		while(iterator.hasNext()) {
-			setFromGameEntity.add(gameMapper.mapToDTOfromEntity(iterator.next()));
-		}
-		
+
+		Set<GameDTO> gamesDTO = new HashSet<>();
+		userEntity.getGamesSet().forEach(gameEntity -> {
+			final GameDTO gameDTO = gameMapper.mapToDTO(gameEntity);
+			gamesDTO.add(gameDTO);
+		});
 
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(userEntity.getId());
@@ -37,26 +41,24 @@ public class UserMapper implements MapperInterface<UserEntity, UserDTO> {
 		userDTO.setEmail(userEntity.getEmail());
 		userDTO.setPassword(userEntity.getPassword());
 		userDTO.setLifeMotto(userEntity.getLifeMotto());
-		userDTO.setGamesSet(setFromGameEntity);
+		userDTO.setGamesSet(gamesDTO);
 		userDTO.setAvailableFrom(userEntity.getAvailableFrom());
 		userDTO.setAvailableTo(userEntity.getAvailableTo());
 		userDTO.setNoAvailabilityComment(userEntity.getNoAvailabilityComment());
-
 		return userDTO;
-
 	}
 
 	@Override
-	public UserEntity mapToEntityFromDTO(UserDTO userDTO) {
-
+	public UserEntity mapToEntity(UserDTO userDTO) {
 		if (userDTO == null) {
-			return null;
+			throw new NullPointerException("Cannot map null object.");
 		}
-		Set<GameEntity> setFromGameDTO= new HashSet<>();
-		Iterator<GameDTO> iterator=userDTO.getGamesSet().iterator();
-		while(iterator.hasNext()) {
-			setFromGameDTO.add(gameMapper.mapToEntityFromDTO(iterator.next()));
-		}
+
+		Set<GameEntity> gameEntities = new HashSet<>();
+		userDTO.getGamesSet().forEach(gameDTO -> {
+			final GameEntity gameEntity = gameMapper.mapToEntity(gameDTO);
+			gameEntities.add(gameEntity);
+		});
 
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId(userDTO.getId());
@@ -65,12 +67,11 @@ public class UserMapper implements MapperInterface<UserEntity, UserDTO> {
 		userEntity.setEmail(userDTO.getEmail());
 		userEntity.setPassword(userDTO.getPassword());
 		userEntity.setLifeMotto(userDTO.getLifeMotto());
-		userEntity.setGamesSet(setFromGameDTO);
+		userEntity.setGamesSet(gameEntities);
 		userEntity.setAvailableFrom(userDTO.getAvailableFrom());
 		userEntity.setAvailableTo(userDTO.getAvailableTo());
 		userEntity.setNoAvailabilityComment(userDTO.getNoAvailabilityComment());
 		return userEntity;
-
 	}
 
 }

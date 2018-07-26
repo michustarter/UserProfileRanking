@@ -1,121 +1,136 @@
 package com.capgemini.dataaccess.repository;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.exceptions.NullUsersException;
+import com.capgemini.utils.exceptions.NullUsersException;
 
 @Repository
-public class UserDAO extends AdapterCrudDAO<UserEntity, Long> { // lepiej nie exte typlko imopleentacje int
+public class UserDAO implements CrudDAO<UserEntity, Long> {
 
 	private final Map<Long, UserEntity> usersMap;
 
+	@Autowired
 	public UserDAO(Map<Long, UserEntity> usersMap) {
-		this.usersMap = usersMap; // tutaj powinienem dać chyba jednak: =new
-									// Set<>(); ???
+		this.usersMap = usersMap;
 	}
 
 	@Override
 	public UserEntity save(UserEntity userEntity) {
+		if (userEntity == null) {
+			throw new NullPointerException("User cannot be null");
+		}
 		usersMap.put(userEntity.getId(), userEntity);
-
 		return usersMap.get(userEntity.getId());
 	}
-	
 
 	@Override
-	public UserEntity findByID(Long userID) throws NullUsersException {
-		if (!usersMap.keySet().contains(userID)) {
-			throw new NullUsersException();
+	public UserEntity findByID(Long userId) {
+		if (!usersMap.containsKey(userId)) {
+			throw new NullUsersException("Cannot find user with given id " + userId + ".");
 		}
-		return usersMap.get(userID);
+		return usersMap.get(userId);
 	}
 
 	@Override
-	public UserEntity update(UserEntity userEntity) {
-		// w Servisie wywołam tę metodę i do tej metody po zmapowaniu z DTO na
-		// Entity mam przekazać już obiekt do uaktualnieniea czyli tutaj z mapy
-		// soibe wywolam konketne pola i zrobie na setterami
-		if (!usersMap.containsKey(userEntity.getId())) {
-			return null;
+	public UserEntity update(UserEntity updatedUser) {
+		if (!usersMap.containsKey(updatedUser.getId())) {
+			throw new NullUsersException(
+					"Cannot createProfile user with id: " + updatedUser.getId() + ". User doesn't exist.");
 		}
-		long idOfUpdate = userEntity.getId();
-		UserEntity updatedUser = usersMap.get(idOfUpdate);
-		// id nie sprawdzam bo tego nie zmienię nigdy
 
-		if (userEntity.getFirstName() != null) {
-			updatedUser.setFirstName(userEntity.getFirstName());
+		long idOfUpdate = updatedUser.getId();
+		UserEntity user = usersMap.get(idOfUpdate);
+		if (updatedUser.getFirstName() != null) {
+			user.setFirstName(updatedUser.getFirstName());
 		}
-		if (userEntity.getLastName() != null) {
-			updatedUser.setLastName(userEntity.getLastName());
+		if (updatedUser.getLastName() != null) {
+			user.setLastName(updatedUser.getLastName());
 		}
-		if (userEntity.getEmail() != null) {
-			updatedUser.setEmail(userEntity.getEmail());
+		if (updatedUser.getEmail() != null) {
+			user.setEmail(updatedUser.getEmail());
 		}
-		if (userEntity.getPassword() != null) {
-			updatedUser.setPassword(userEntity.getPassword());
+		if (updatedUser.getPassword() != null) {
+			user.setPassword(updatedUser.getPassword());
 		}
-		if (userEntity.getLifeMotto() != null) {
-			updatedUser.setLifeMotto(userEntity.getLifeMotto());
+		if (updatedUser.getLifeMotto() != null) {
+			user.setLifeMotto(updatedUser.getLifeMotto());
 		}
-		if (userEntity.getGamesSet() != null) {
-			updatedUser.setGamesSet(userEntity.getGamesSet());
+		if (updatedUser.getGamesSet() != null) {
+			user.setGamesSet(updatedUser.getGamesSet());
 		}
-		if (userEntity.getAvailableFrom() != usersMap.get(idOfUpdate).getAvailableFrom()
-				|| userEntity.getAvailableTo() != usersMap.get(idOfUpdate).getAvailableTo()
-						&& userEntity.getNoAvailabilityComment() != "") {
-			/*
-			 * w if() nie wklejam skrótu updatedUser żeby nie mylić, bo
-			 * sprawdzam aktualny stan mapy jeśli zauważono zmianę godzin
-			 * dostępności - dodaję komentarz przekazany w obiekcie, jeśli jest
-			 * różny od "" ten komentarz (choć można w sumie ten warunek != ""
-			 * pominąć...
-			 */
-			updatedUser.setNoAvailabilityComment(userEntity.getNoAvailabilityComment());
+		if (updatedUser.getAvailableFrom() != user.getAvailableFrom()
+				|| updatedUser.getAvailableTo() != user.getAvailableTo()
+						&& !"".equals(updatedUser.getNoAvailabilityComment())) {
+			user.setNoAvailabilityComment(updatedUser.getNoAvailabilityComment());
 		}
-		if (userEntity.getAvailableFrom() != null
-				&& userEntity.getAvailableFrom() != usersMap.get(idOfUpdate).getAvailableFrom()) {
-			/*
-			 * różny od NUlla i różny od początkowej godziny
-			 */
-			updatedUser.setAvailableFrom(userEntity.getAvailableFrom());
+		if (updatedUser.getAvailableFrom() != null && updatedUser.getAvailableFrom() != user.getAvailableFrom()) {
+			user.setAvailableFrom(updatedUser.getAvailableFrom());
 		}
-		if (userEntity.getAvailableTo() != null
-				&& userEntity.getAvailableTo() != usersMap.get(idOfUpdate).getAvailableTo()) {
-			updatedUser.setAvailableTo(userEntity.getAvailableTo());
+		if (updatedUser.getAvailableTo() != null && updatedUser.getAvailableTo() != user.getAvailableTo()) {
+			user.setAvailableTo(updatedUser.getAvailableTo());
 
 		}
-		/*
-		 * 
-		 * } if (lastName != null) { userDTO.setLastName(lastName); } if (email
-		 * != null) { userDTO.setEmail(email); } if (oldPassword != null &&
-		 * newPassword != null && userDTO.getPassword().equals(oldPassword)) {
-		 * userDTO.setPassword(newPassword); } if (lifeMotto != null) {
-		 * userDTO.setLifeMotto(lifeMotto); }
-		 * 
-		 * saveModificationsInUserProfile(userDTO); return userDTO;
-		 */
 
-		return usersMap.get(idOfUpdate);
+		return user;
+	}
+
+	@Override
+	public void delete(Long userId) {
+		if (!usersMap.containsKey(userId)) {
+			throw new NullUsersException("User with given id " + userId + " doesn't exist.");
+		}
+	}
+
+	@Override
+	public List<UserEntity> findAll() {
+		return null;
 	}
 
 	public void deleteAvailability(Long userID) {
-		// ustawiam godz. pocz. i końcową na NULL + komentarz --> ok?
 		usersMap.get(userID).setAvailableFrom(null);
 		usersMap.get(userID).setAvailableTo(null);
-		usersMap.get(userID).setNoAvailabilityComment("Nie mam czasu");
-
+		usersMap.get(userID).setNoAvailabilityComment("Nie mam czasu.");
 	}
 
 	public Set<UserEntity> getUsers() {
-		return usersMap.values().stream().collect(Collectors.toSet());
+		return new HashSet<>(usersMap.values());
 	}
 
 	public int usersNumber() {
 		return usersMap.size();
+	}
+
+	public Set<GameEntity> getUserGames(Long userId) {
+		if (!usersMap.containsKey(userId)) {
+			throw new NullUsersException("elo");
+		}
+		return usersMap.get(userId).getGamesSet();
+	}
+
+	public void removeUserGame(Long userId, GameEntity removedGame) {
+		if (!usersMap.containsKey(userId)) {
+			throw new NullUsersException("Dupa");
+		}
+
+		final Set<GameEntity> gamesSet = usersMap.get(userId).getGamesSet();
+		if (gamesSet == null) {
+			throw new NullPointerException("User doesn't have games.");
+		}
+		gamesSet.remove(removedGame);
+	}
+
+	public void addNewGame(Long userId, GameEntity newGame) {
+		if (!usersMap.containsKey(userId)) {
+			throw new NullUsersException("User with given id " + userId + " doesn't exist.");
+		}
+		usersMap.get(userId).getGamesSet().add(newGame);
 	}
 }

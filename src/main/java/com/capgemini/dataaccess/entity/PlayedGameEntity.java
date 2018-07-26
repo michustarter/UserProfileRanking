@@ -6,10 +6,6 @@ public class PlayedGameEntity {
 	private GameEntity game;
 	private UserEntity winner;
 	private UserEntity lost;
-	/*
-	 * private Level winnerLevel; - to na podstawie filtracji na stremach,
-	 * zliczanie zrobić jakieś private Level lostLevel;
-	 */
 
 	public PlayedGameEntity() {
 	}

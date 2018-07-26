@@ -1,10 +1,10 @@
-package com.capgemini.service;
+package com.capgemini.service.dto;
 
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserDTO { // bez adnotacji tutaj!!
+public class UserDTO {
 
 	private Long id;
 	private String firstName;

@@ -1,4 +1,4 @@
-package com.capgemini.service;
+package com.capgemini.service.dto;
 
 public class PlayedGameDTO {
 
@@ -6,18 +6,12 @@ public class PlayedGameDTO {
 	private GameDTO game;
 	private UserDTO winner;
 	private UserDTO lost;
-	/*
-	 * private Level winnerLevel; private Level lostLevel;
-	 */
-
+	
 	public PlayedGameDTO() {
 		this.id = null;
 		this.game = null;
 		this.winner = null;
 		this.lost = null;
-		/*
-		 * this.winnerLevel=Level.NEWBIE; this.lostLevel=Level.NEWBIE;
-		 */
 	}
 
 	public Long getId() {
