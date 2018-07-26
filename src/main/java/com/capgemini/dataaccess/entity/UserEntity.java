@@ -1,64 +1,166 @@
 package com.capgemini.dataaccess.entity;
 
-import org.springframework.stereotype.Component;
+import java.time.Instant;
+import java.util.Set;
 
-@Component
 public class UserEntity {
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private String lifeMotto;
 
-	public UserEntity() {
-	}
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String lifeMotto;
+    private Set<GameEntity> games;
+    private Instant availableFrom;
+    private Instant availableTo;
+    private String noAvailabilityComment;
 
-	public UserEntity(String firstName, String lastName, String email, String password, String lifeMotto) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.lifeMotto = lifeMotto;
-	}
+    public UserEntity() {
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public UserEntity(Long id, String firstName, String lastName, String email, String password, String lifeMotto,
+                      Set<GameEntity> games, Instant availableFrom, Instant availableTo, String noAvailabilityComment) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.lifeMotto = lifeMotto;
+        this.games = games;
+        this.availableFrom = availableFrom;
+        this.availableTo = availableTo;
+        this.noAvailabilityComment = noAvailabilityComment;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getLifeMotto() {
-		return lifeMotto;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setLifeMotto(String lifeMotto) {
-		this.lifeMotto = lifeMotto;
-	}
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLifeMotto() {
+        return lifeMotto;
+    }
+
+    public void setLifeMotto(String lifeMotto) {
+        this.lifeMotto = lifeMotto;
+    }
+
+    public Set<GameEntity> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<GameEntity> games) {
+        this.games = games;
+    }
+
+    public Instant getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public void setAvailableFrom(Instant availableFrom) {
+        this.availableFrom = availableFrom;
+    }
+
+    public Instant getAvailableTo() {
+        return availableTo;
+    }
+
+    public void setAvailableTo(Instant availableTo) {
+        this.availableTo = availableTo;
+    }
+
+    public String getNoAvailabilityComment() {
+        return noAvailabilityComment;
+    }
+
+    public void setNoAvailabilityComment(String noAvailabilityComment) {
+        this.noAvailabilityComment = noAvailabilityComment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserEntity that = (UserEntity) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (lifeMotto != null ? !lifeMotto.equals(that.lifeMotto) : that.lifeMotto != null) return false;
+        if (games != null ? !games.equals(that.games) : that.games != null) return false;
+        if (availableFrom != null ? !availableFrom.equals(that.availableFrom) : that.availableFrom != null)
+            return false;
+        if (availableTo != null ? !availableTo.equals(that.availableTo) : that.availableTo != null) return false;
+        return noAvailabilityComment != null ? noAvailabilityComment.equals(that.noAvailabilityComment) : that.noAvailabilityComment == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (lifeMotto != null ? lifeMotto.hashCode() : 0);
+        result = 31 * result + (games != null ? games.hashCode() : 0);
+        result = 31 * result + (availableFrom != null ? availableFrom.hashCode() : 0);
+        result = 31 * result + (availableTo != null ? availableTo.hashCode() : 0);
+        result = 31 * result + (noAvailabilityComment != null ? noAvailabilityComment.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", lifeMotto='" + lifeMotto + '\'' +
+                ", games=" + games.size() +
+                ", availableFrom=" + availableFrom +
+                ", availableTo=" + availableTo +
+                ", noAvailabilityComment='" + noAvailabilityComment + '\'' +
+                '}';
+    }
 }

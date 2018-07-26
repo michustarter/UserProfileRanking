@@ -9,37 +9,45 @@ import com.capgemini.service.UserDTO;
 public class UserMapper implements MapperInterface<UserEntity, UserDTO> {
 
 	@Override
-	public UserDTO mapToDTOfromDAO(UserEntity userEntity) {
+	public UserDTO mapToDTOfromEntity(UserEntity userEntity) {
 
 		if (userEntity == null) {
-			throw new NullPointerException();
+			return null;
 		}
 
 		UserDTO userDTO = new UserDTO();
+		userDTO.setId(userEntity.getId());
 		userDTO.setFirstName(userEntity.getFirstName());
 		userDTO.setLastName(userEntity.getLastName());
 		userDTO.setEmail(userEntity.getEmail());
 		userDTO.setPassword(userEntity.getPassword());
 		userDTO.setLifeMotto(userEntity.getLifeMotto());
+		userDTO.setGamesSet(userEntity.getGames());
+		userDTO.setAvailableFrom(userEntity.getAvailableFrom());
+		userDTO.setAvailableTo(userEntity.getAvailableTo());
 
 		return userDTO;
 
 	}
 
 	@Override
-	public UserEntity mapToDAOfromDTO(UserDTO userDTO) {
+	public UserEntity mapToEntityFromDTO(UserDTO userDTO) {
 
 		if (userDTO == null) {
-			throw new NullPointerException();
+			return null;
 		}
 
 		UserEntity userEntity = new UserEntity();
+		userEntity.setId(userDTO.getId());
 		userEntity.setFirstName(userDTO.getFirstName());
 		userEntity.setLastName(userDTO.getLastName());
 		userEntity.setEmail(userDTO.getEmail());
 		userEntity.setPassword(userDTO.getPassword());
 		userEntity.setLifeMotto(userDTO.getLifeMotto());
-
+		userEntity.setGames(userDTO.getGamesSet());
+		userEntity.setAvailableFrom(userDTO.getAvailableFrom());
+		userEntity.setAvailableTo(userDTO.getAvailableTo());
+		userEntity.setNoAvailabilityComment(userDTO.getNoAvailabilityComment());
 		return userEntity;
 
 	}

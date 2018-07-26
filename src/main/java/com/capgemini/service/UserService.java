@@ -1,8 +1,11 @@
 package com.capgemini.service;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.dataaccess.entity.BoardGameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
 import com.capgemini.dataaccess.repository.UserDAO;
 import com.capgemini.exceptions.NullUsersException;
@@ -23,40 +26,26 @@ public class UserService {
 	public UserDTO checkMyProfile(String email) throws NullUsersException {
 		/* konstrukcja wyjątku - ok? */
 		try {
-			UserEntity userEntity = userDAO.findUserByEmail(email);
-			return userMapper.mapToDTOfromDAO(userEntity);
+			UserEntity userEntity = userDAO.findByID(userID);
+			return userMapper.mapToDTOfromEntity(userEntity);
 		} catch (NullUsersException e) {
 			throw new NullUsersException();
 		}
 	}
 
 	public void saveModificationsInUserProfile(UserDTO userDTO) {
-		userDAO.modifyUserEntity(userMapper.mapToDAOfromDTO(userDTO));
+		userDAO.save(userMapper.mapToEntityFromDTO(userDTO));
 	}
 
-	public UserDTO editMyProfileInformation(UserDTO userDTO, String firstName, String lastName, String email,
-			String oldPassword, String newPassword, String lifeMotto) {
+	public UserDTO editMyProfileInformation(UserDTO userDTO) {
+			
 		if (userDTO == null) {
-			throw new NullUsersException();
+			return null;
 		}
-
-		if (firstName != null) {
-			userDTO.setFirstName(firstName);
-		}
-		if (lastName != null) {
-			userDTO.setLastName(lastName);
-		}
-		if (email != null) {
-			userDTO.setEmail(email);
-		}
-		if (newPassword != null && userDTO.getPassword().equals(oldPassword)) {
-			userDTO.setPassword(newPassword);
-		}
-		if (lifeMotto != null) {
-			userDTO.setLifeMotto(lifeMotto);
-		}
-
+		userDAO.update(userMapper.mapToEntityFromDTO(userDTO));
+		
 		saveModificationsInUserProfile(userDTO);
 		return userDTO;
 	}
 }
+		

@@ -1,8 +1,8 @@
 package com.capgemini.enums;
 
 public enum Level {
-	NEWBIE(1, 0.0), WEAKLING(2, 0.5), BEGINNER(3, 1.0), EXPERIENCED_BEGINNER(4, 1.5), MIDDLEBROW(5,
-			2.0), EXPERIENCED_MIDDLEBORW(6, 2.5), ADVANCED(7, 3.0), MASTER(8, 3.5);
+	NEWBIE(0, 0.0), WEAKLING(1, 0.5), BEGINNER(2, 1.0), MIDDLEBROW(3, 1.5), EXPERIENCED_MIDDLEBORW(4, 2.0), ADVANCED(5,
+			2.5), MASTER(6, 3.0);
 
 	private final int value;
 	private final double winRate;
@@ -27,5 +27,10 @@ public enum Level {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "Level{" + " value = " + value + ", winRate = " + winRate + " }";
 	}
 }
