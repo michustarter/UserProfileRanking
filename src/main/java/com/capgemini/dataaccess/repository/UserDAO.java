@@ -1,14 +1,12 @@
 package com.capgemini.dataaccess.repository;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
 import com.capgemini.utils.exceptions.NullUsersException;
 
@@ -87,50 +85,12 @@ public class UserDAO implements CrudDAO<UserEntity, Long> {
 		if (!usersMap.containsKey(userId)) {
 			throw new NullUsersException("User with given id " + userId + " doesn't exist.");
 		}
+		usersMap.remove(userId);
 	}
 
 	@Override
 	public List<UserEntity> findAll() {
-		return null;
+		return new ArrayList<>(usersMap.values());
 	}
 
-	public void deleteAvailability(Long userID) {
-		usersMap.get(userID).setAvailableFrom(null);
-		usersMap.get(userID).setAvailableTo(null);
-		usersMap.get(userID).setNoAvailabilityComment("I have no time.");
-	}
-
-	public Set<UserEntity> getUsers() {
-		return new HashSet<>(usersMap.values());
-	}
-
-	public int usersNumber() {
-		return usersMap.size();
-	}
-
-	public Set<GameEntity> getUserGames(Long userId) {
-		if (!usersMap.containsKey(userId)) {
-			throw new NullUsersException("elo");
-		}
-		return usersMap.get(userId).getGamesSet();
-	}
-
-	public void removeUserGame(Long userId, GameEntity removedGame) {
-		if (!usersMap.containsKey(userId)) {
-			throw new NullUsersException("Dupa");
-		}
-
-		final Set<GameEntity> gamesSet = usersMap.get(userId).getGamesSet();
-		if (gamesSet == null) {
-			throw new NullPointerException("User doesn't have games.");
-		}
-		gamesSet.remove(removedGame);
-	}
-
-	public void addNewGame(Long userId, GameEntity newGame) {
-		if (!usersMap.containsKey(userId)) {
-			throw new NullUsersException("User with given id " + userId + " doesn't exist.");
-		}
-		usersMap.get(userId).getGamesSet().add(newGame);
-	}
 }

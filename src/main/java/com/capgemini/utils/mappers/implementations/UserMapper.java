@@ -56,7 +56,7 @@ public class UserMapper implements Mapper<UserEntity, UserDTO> {
 
 		Set<GameEntity> gameEntities = new HashSet<>();
 		userDTO.getGamesSet().forEach(gameDTO -> {
-			final GameEntity gameEntity = gameMapper.mapToEntity(gameDTO);
+			GameEntity gameEntity = gameMapper.mapToEntity(gameDTO);
 			gameEntities.add(gameEntity);
 		});
 

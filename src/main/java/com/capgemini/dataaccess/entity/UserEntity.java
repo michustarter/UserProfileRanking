@@ -1,6 +1,7 @@
 package com.capgemini.dataaccess.entity;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserEntity {
@@ -27,7 +28,7 @@ public class UserEntity {
 		this.email = email;
 		this.password = password;
 		this.lifeMotto = lifeMotto;
-		this.gamesSet = gamesSet;
+		this.gamesSet = new HashSet<>();
 		this.availableFrom = availableFrom;
 		this.availableTo = availableTo;
 		this.noAvailabilityComment = noAvailabilityComment;

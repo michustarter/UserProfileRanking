@@ -1,20 +1,20 @@
 package com.capgemini.service;
 
-import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.repository.UserDAO;
-import com.capgemini.service.dto.UserDTO;
-import com.capgemini.utils.mappers.implementations.UserMapper;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 
 import java.time.Instant;
 import java.util.HashSet;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import com.capgemini.dataaccess.entity.UserEntity;
+import com.capgemini.dataaccess.repository.UserDAO;
+import com.capgemini.service.dto.UserDTO;
+import com.capgemini.utils.mappers.implementations.UserMapper;
 
 public class UserServiceTest {
 
@@ -32,20 +32,47 @@ public class UserServiceTest {
 	@Test
 	public void shouldFindUser() throws Exception {
 		// given
-		UserDTO user = new UserDTO(1L, "Krzysztof", "Zieliński", "krzysiek@onet.pl", "ytrdx2", "Jestem zwyciezca!",
-				new HashSet<>(), Instant.now(), Instant.now(), "");
+		UserEntity expectedUserEntity = createUserEntity();
+		UserDTO expectedUserDto = createUserDto();
 
-		UserEntity userEntity = new UserEntity(1L, "Krzysztof", "Zieliński", "krzysiek@onet.pl", "ytrdx2",
-				"Jestem zwyciezca!", new HashSet<>(), Instant.now(), Instant.now(), "");
+		when(userDAO.findByID(eq(expectedUserEntity.getId()))).thenReturn(expectedUserEntity);
 
-		when(userDAO.findByID(anyLong())).thenReturn(userEntity);
-
-		when(userMapper.mapToDTO(any(UserEntity.class))).thenReturn(user);
+		when(userMapper.mapToDTO(eq(expectedUserEntity))).thenReturn(expectedUserDto);
 
 		// when
-		UserDTO result = userService.getProfile(user.getId());
+		UserDTO result = userService.getProfile(expectedUserDto.getId());
 
 		// then
-		assertThat(result).isEqualTo(user);
+		assertThat(result).isEqualTo(expectedUserDto);
+	}
+
+	@Test
+	public void shouldSaveUser() {
+		// given
+		UserEntity expectedUserEntity = createUserEntity();
+		UserDTO expectedUserDto = createUserDto();
+
+		when(userDAO.save(eq(expectedUserEntity))).thenReturn(expectedUserEntity);
+
+		when(userMapper.mapToDTO(eq(expectedUserEntity))).thenReturn(expectedUserDto);
+
+		// when
+		userService.createProfile(expectedUserDto);
+		UserDTO result = userService.getProfile(expectedUserDto.getId());
+
+		// then
+		assertThat(userService.getProfile(expectedUserDto.getId())).isEqualTo(result);
+	}
+
+	//
+
+	private UserDTO createUserDto() {
+		return new UserDTO(1L, "Krzysztof", "Zieliński", "krzysiek@onet.pl", "ytrdx2", "Jestem zwyciezca!",
+				new HashSet<>(), Instant.now(), Instant.now(), "");
+	}
+
+	private UserEntity createUserEntity() {
+		return new UserEntity(1L, "Krzysztof", "Zieliński", "krzysiek@onet.pl", "ytrdx2", "Jestem zwyciezca!",
+				new HashSet<>(), Instant.now(), Instant.now(), "");
 	}
 }

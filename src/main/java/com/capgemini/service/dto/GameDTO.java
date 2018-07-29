@@ -9,6 +9,10 @@ public class GameDTO {
 		this.id = null;
 		this.title = "";
 	}
+	public GameDTO(Long id, String title) {
+		this.id=id;
+		this.title=title;
+	}
 
 	public Long getId() {
 		return id;

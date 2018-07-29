@@ -12,7 +12,7 @@ public class UserDTO {
 	private String email;
 	private String password;
 	private String lifeMotto;
-	private Set<GameDTO> gamesSet = new HashSet<>();
+	private Set<GameDTO> gamesSet;
 	private Instant availableFrom;
 	private Instant availableTo;
 	private String noAvailabilityComment;
@@ -28,7 +28,7 @@ public class UserDTO {
 		this.email = email;
 		this.password = password;
 		this.lifeMotto = lifeMotto;
-		this.gamesSet = gamesSet;
+		this.gamesSet = new HashSet<>();
 		this.availableFrom = availableFrom;
 		this.availableTo = availableTo;
 		this.noAvailabilityComment = noAvailabilityComment;

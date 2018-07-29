@@ -14,6 +14,12 @@ public class PlayedGameDTO {
 		this.lost = null;
 
 	}
+	public PlayedGameDTO(Long id, GameDTO game, UserDTO winner, UserDTO lost) {
+		this.id = id;
+		this.game = game;
+		this.winner = winner;
+		this.lost = lost;
+	}
 
 	public Long getId() {
 		return id;
