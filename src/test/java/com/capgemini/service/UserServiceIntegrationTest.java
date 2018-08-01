@@ -14,8 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.capgemini.dataaccess.entity.UserEntity;
+import com.capgemini.dataaccess.exceptions.NullUsersException;
 import com.capgemini.service.dto.UserDTO;
-import com.capgemini.utils.exceptions.NullUsersException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

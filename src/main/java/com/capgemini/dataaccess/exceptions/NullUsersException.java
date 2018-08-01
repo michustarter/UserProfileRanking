@@ -1,4 +1,4 @@
-package com.capgemini.utils.exceptions;
+package com.capgemini.dataaccess.exceptions;
 
 public class NullUsersException extends RuntimeException {
 

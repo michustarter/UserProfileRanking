@@ -1,4 +1,4 @@
-package com.capgemini.utils.enums;
+package com.capgemini.dataaccess.enums;
 
 public enum Level {
 	NEWBIE(0, 0.0), WEAKLING(1, 0.5), BEGINNER(2, 1.0), MIDDLEBROW(3, 1.5), EXPERIENCED_MIDDLEBORW(4, 2.0), ADVANCED(5,

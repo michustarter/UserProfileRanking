@@ -1,4 +1,4 @@
-package com.capgemini.dataaccess.repository;
+package com.capgemini.dataaccess.repository.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.utils.exceptions.NullUsersException;
+import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.repository.CrudDAO;
 
 @Repository
-public class UserDAO implements CrudDAO<UserEntity, Long> {
+public class UserDAOImpl implements CrudDAO<UserEntity, Long> {
 
 	private final Map<Long, UserEntity> usersMap;
 
 	@Autowired
-	public UserDAO(Map<Long, UserEntity> usersMap) {
+	public UserDAOImpl(Map<Long, UserEntity> usersMap) {
 		this.usersMap = usersMap;
 	}
 

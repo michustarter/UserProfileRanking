@@ -1,4 +1,4 @@
-package com.capgemini.service;
+package com.capgemini.service.implementation;
 
 import java.util.List;
 import java.util.Set;
@@ -9,20 +9,21 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.repository.UserDAO;
+import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.mappers.implementations.UserMapper;
+import com.capgemini.dataaccess.repository.implementation.UserDAOImpl;
+import com.capgemini.service.UserService;
 import com.capgemini.service.dto.GameDTO;
 import com.capgemini.service.dto.UserDTO;
-import com.capgemini.utils.exceptions.NullUsersException;
-import com.capgemini.utils.mappers.implementations.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-	private UserDAO userDAO;
+	private UserDAOImpl userDAO;
 	private UserMapper userMapper;
 
 	@Autowired
-	public UserServiceImpl(UserDAO userDAO, UserMapper userMapper) {
+	public UserServiceImpl(UserDAOImpl userDAO, UserMapper userMapper) {
 		this.userDAO = userDAO;
 		this.userMapper = userMapper;
 	}

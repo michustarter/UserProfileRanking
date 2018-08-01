@@ -1,9 +1,9 @@
-package com.capgemini.utils.mappers.implementations;
+package com.capgemini.dataaccess.mappers.implementations;
 
-import com.capgemini.utils.mappers.Mapper;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.dataaccess.entity.GameEntity;
+import com.capgemini.dataaccess.mappers.Mapper;
 import com.capgemini.service.dto.GameDTO;
 
 @Component

@@ -1,10 +1,10 @@
-package com.capgemini.utils.mappers.implementations;
+package com.capgemini.dataaccess.mappers.implementations;
 
-import com.capgemini.utils.mappers.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.dataaccess.entity.PlayedGameEntity;
+import com.capgemini.dataaccess.mappers.Mapper;
 import com.capgemini.service.dto.PlayedGameDTO;
 
 @Component

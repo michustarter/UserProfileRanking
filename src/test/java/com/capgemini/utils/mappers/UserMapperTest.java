@@ -1,16 +1,17 @@
 package com.capgemini.utils.mappers;
 
-import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.service.dto.UserDTO;
-import com.capgemini.utils.mappers.implementations.GameMapper;
-import com.capgemini.utils.mappers.implementations.UserMapper;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 import java.time.Instant;
 import java.util.HashSet;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.capgemini.dataaccess.entity.UserEntity;
+import com.capgemini.dataaccess.mappers.implementations.GameMapper;
+import com.capgemini.dataaccess.mappers.implementations.UserMapper;
+import com.capgemini.service.dto.UserDTO;
 
 public class UserMapperTest {
 

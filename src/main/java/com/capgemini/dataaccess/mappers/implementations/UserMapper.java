@@ -1,14 +1,14 @@
-package com.capgemini.utils.mappers.implementations;
+package com.capgemini.dataaccess.mappers.implementations;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.capgemini.utils.mappers.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
+import com.capgemini.dataaccess.mappers.Mapper;
 import com.capgemini.service.dto.GameDTO;
 import com.capgemini.service.dto.UserDTO;
 

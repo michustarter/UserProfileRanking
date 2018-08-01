@@ -12,18 +12,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.repository.UserDAO;
-import com.capgemini.utils.exceptions.NullUsersException;;
+import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.repository.implementation.UserDAOImpl;;
 
 public class UserDaoTest {
 
-	private UserDAO userDAO;
+	private UserDAOImpl userDAO;
 	private Map<Long, UserEntity> storage;
 
 	@Before
 	public void setUp() throws Exception {
 		storage = new HashMap<>();
-		userDAO = new UserDAO(storage);
+		userDAO = new UserDAOImpl(storage);
 	}
 
 	@Test

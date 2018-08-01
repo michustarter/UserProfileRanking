@@ -12,19 +12,20 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.repository.UserDAO;
+import com.capgemini.dataaccess.mappers.implementations.UserMapper;
+import com.capgemini.dataaccess.repository.implementation.UserDAOImpl;
 import com.capgemini.service.dto.UserDTO;
-import com.capgemini.utils.mappers.implementations.UserMapper;
+import com.capgemini.service.implementation.UserServiceImpl;
 
 public class UserServiceTest {
 
 	private UserService userService;
-	private UserDAO userDAO;
+	private UserDAOImpl userDAO;
 	private UserMapper userMapper;
 
 	@Before
 	public void setUp() throws Exception {
-		userDAO = Mockito.mock(UserDAO.class);
+		userDAO = Mockito.mock(UserDAOImpl.class);
 		userMapper = Mockito.mock(UserMapper.class);
 		userService = new UserServiceImpl(userDAO, userMapper);
 	}
