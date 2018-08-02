@@ -1,5 +1,6 @@
 package com.capgemini.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.capgemini.service.dto.GameDTO;
@@ -18,6 +19,10 @@ public interface UserService {
 	void deleteAvailabilityHours(Long userId);
 	
 	Set<UserDTO> getAllUSers();
+	
+	Set<GameDTO> getUserGames(Long userId);
+	
+	List<UserDTO> findUserByParameters(UserDTO user);
 	
 	void removeGame(Long userId, GameDTO removedGame);
 }

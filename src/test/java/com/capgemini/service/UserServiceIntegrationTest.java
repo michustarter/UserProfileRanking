@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.exceptions.UserCouldNotBeFoundException;
 import com.capgemini.service.dto.UserDTO;
 
 @RunWith(SpringRunner.class)
@@ -64,7 +64,7 @@ public class UserServiceIntegrationTest {
 		assertThat(updatedUser).isEqualTo(user);
 	}
 
-	@Test(expected = NullUsersException.class)
+	@Test(expected = UserCouldNotBeFoundException.class)
 	public void shouldDeleteUser() {
 		// given
 		UserDTO userToDelete = createUserDto();

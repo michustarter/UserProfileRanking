@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.exceptions.UserCouldNotBeFoundException;
 import com.capgemini.dataaccess.repository.CrudDAO;
 
 @Repository
@@ -33,7 +33,7 @@ public class UserDAOImpl implements CrudDAO<UserEntity, Long> {
 	@Override
 	public UserEntity findByID(Long userId) {
 		if (!usersMap.containsKey(userId)) {
-			throw new NullUsersException("Cannot find user with given id " + userId + ".");
+			throw new UserCouldNotBeFoundException("Cannot find user with given id " + userId + ".");
 		}
 		return usersMap.get(userId);
 	}
@@ -41,7 +41,7 @@ public class UserDAOImpl implements CrudDAO<UserEntity, Long> {
 	@Override
 	public UserEntity update(UserEntity updatedUser) {
 		if (!usersMap.containsKey(updatedUser.getId())) {
-			throw new NullUsersException(
+			throw new UserCouldNotBeFoundException(
 					"Cannot createProfile user with id: " + updatedUser.getId() + ". User doesn't exist.");
 		}
 
@@ -84,7 +84,7 @@ public class UserDAOImpl implements CrudDAO<UserEntity, Long> {
 	@Override
 	public void delete(Long userId) {
 		if (!usersMap.containsKey(userId)) {
-			throw new NullUsersException("User with given id " + userId + " doesn't exist.");
+			throw new UserCouldNotBeFoundException("User with given id " + userId + " doesn't exist.");
 		}
 		usersMap.remove(userId);
 	}

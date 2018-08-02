@@ -1,5 +1,6 @@
 package com.capgemini.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.dataaccess.entity.GameEntity;
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.exceptions.UserCouldNotBeFoundException;
 import com.capgemini.dataaccess.mappers.implementations.UserMapper;
 import com.capgemini.dataaccess.repository.implementation.UserDAOImpl;
 import com.capgemini.service.UserService;
@@ -99,7 +100,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity user = userDAO.findByID(userId);
 
 		if (user == null) {
-			throw new NullUsersException("User with given id " + userId + " doesn't exist.");
+			throw new UserCouldNotBeFoundException("User with given id " + userId + " doesn't exist.");
 		}
 		user.getGamesSet().add(newGame);
 		userDAO.update(user);
@@ -110,12 +111,76 @@ public class UserServiceImpl implements UserService {
 		return getAllUSers().size();
 	}
 
+	@Override
 	public Set<GameDTO> getUserGames(Long userId) {
 		if (!getAllUSers().contains(getProfile(userId))) {
-			throw new NullUsersException("elo");
+			throw new UserCouldNotBeFoundException("User with given id " + userId + " doesn't exist.");
 		}
 		return getProfile(userId).getGamesSet();
 
+	}
+
+	@Override
+	public List<UserDTO> findUserByParameters(UserDTO user) {
+
+		String userFirstName = user.getFirstName();
+		String userLastName = user.getLastName();
+		String userEmail = user.getEmail();
+		String userLifeMotto = user.getLifeMotto();
+		List<UserEntity> allUsers = userDAO.findAll();
+		List<UserEntity> usersFound = new ArrayList<>();
+
+		if (!userFirstName.isEmpty()) {
+			List<UserEntity> wantedUsers = new ArrayList<>();
+			try {
+				wantedUsers = allUsers.stream().filter(users -> users.getFirstName().contains(userFirstName))
+						.collect(Collectors.toList());
+				usersFound.addAll(wantedUsers);
+			} catch (UserCouldNotBeFoundException e) {
+			}
+
+		}
+		if (!userLastName.isEmpty()) {
+			List<UserEntity> wantedUsers = new ArrayList<>();
+			try {
+				wantedUsers = allUsers.stream().filter(users -> users.getLastName().contains(userLastName))
+						.collect(Collectors.toList());
+				if (usersFound.size() == 0) {
+					usersFound.addAll(wantedUsers);
+				} else {
+					usersFound.retainAll(wantedUsers);
+				}
+			} catch (UserCouldNotBeFoundException e) {
+			}
+
+		}
+		if (!userEmail.isEmpty()) {
+			List<UserEntity> wantedUsers = new ArrayList<>();
+			try {
+				wantedUsers = allUsers.stream().filter(users -> users.getEmail().contains(userEmail))
+						.collect(Collectors.toList());
+				if (usersFound.size() == 0) {
+					usersFound.addAll(wantedUsers);
+				} else {
+					usersFound.retainAll(wantedUsers);
+				}
+			} catch (UserCouldNotBeFoundException e) {
+			}
+		}
+		if (!userLifeMotto.isEmpty()) {
+			List<UserEntity> wantedUsers = new ArrayList<>();
+			try {
+				wantedUsers = allUsers.stream().filter(users -> users.getLifeMotto().contains(userLifeMotto))
+						.collect(Collectors.toList());
+				if (usersFound.size() == 0) {
+					usersFound.addAll(wantedUsers);
+				} else {
+					usersFound.retainAll(wantedUsers);
+				}
+			} catch (UserCouldNotBeFoundException e) {
+			}
+		}
+		return usersFound.stream().map(users -> userMapper.mapToDTO(users)).collect(Collectors.toList());
 	}
 
 }

@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.capgemini.dataaccess.entity.UserEntity;
-import com.capgemini.dataaccess.exceptions.NullUsersException;
+import com.capgemini.dataaccess.exceptions.UserCouldNotBeFoundException;
 import com.capgemini.dataaccess.repository.implementation.UserDAOImpl;;
 
 public class UserDaoTest {
@@ -58,7 +58,7 @@ public class UserDaoTest {
 
 	}
 
-	@Test(expected = NullUsersException.class)
+	@Test(expected = UserCouldNotBeFoundException.class)
 	public void shouldDeleteUser() {
 		// given
 		UserEntity userToDelete = createUserEntity();

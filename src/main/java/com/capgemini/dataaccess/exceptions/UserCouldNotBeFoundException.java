@@ -1,10 +1,10 @@
 package com.capgemini.dataaccess.exceptions;
 
-public class NullUsersException extends RuntimeException {
+public class UserCouldNotBeFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = -8338924742645252049L;
 
-	public NullUsersException(String message) {
+	public UserCouldNotBeFoundException(String message) {
 		super(message);
 	}
 }
