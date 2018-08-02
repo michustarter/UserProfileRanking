@@ -3,68 +3,97 @@ package com.capgemini.controller;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import com.capgemini.dataaccess.exceptions.UserCouldNotBeFoundException;
 import com.capgemini.service.UserService;
 import com.capgemini.service.dto.GameDTO;
 import com.capgemini.service.dto.UserDTO;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
+	private static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-	private UserService userService;
+	private final UserService userService;
 
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 
-	@GetMapping(value = "/users")
+	@GetMapping
 	public Set<UserDTO> getAllUsers() {
 		return userService.getAllUSers();
 	}
 
-	@GetMapping(value = "/users/user/{userId}")
+	@GetMapping(value = "/{id}")
 	public UserDTO getUser(@PathVariable("id") Long userId) {
 		return userService.getProfile(userId);
 	}
-	
-	@PutMapping(value="/users/user")
-	public UserDTO addUser(@RequestParam("newUser") UserDTO newUser) {
+
+	@PostMapping
+	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO newUser) {
 		userService.createProfile(newUser);
-		return userService.getProfile(newUser.getId());
+		UserDTO createdUser = userService.getProfile(newUser.getId());
+		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
-	@PutMapping(value="/users/user")
-	public UserDTO editUser(@RequestParam("updatedUser")UserDTO updatedUser) {
-		return userService.editProfile(updatedUser);
+
+	@PutMapping
+	public ResponseEntity<UserDTO> editUser(@RequestBody UserDTO updatedUser) {
+		UserDTO editedUser = userService.editProfile(updatedUser);
+		return new ResponseEntity<>(editedUser, HttpStatus.OK);
 	}
-	
-	@DeleteMapping(value="/users/user/{id}")
+
+	@DeleteMapping(value = "/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeUser(@PathVariable("id") Long userId) {
 		userService.deleteProfile(userId);
 	}
-	@DeleteMapping(value="/users/{id}") 
-		public void deleteAvailability(@RequestParam("id")Long userId) {
-			userService.deleteAvailabilityHours(userId);
-		}
-	
-	@GetMapping(value="/games/user/{id}")
-	public Set<GameDTO> getGames(@RequestParam("id")Long userId) {
+
+	@DeleteMapping(value = "/availability/{userId}")
+	public void deleteAvailability(@PathVariable("userId") Long userId) {
+		userService.deleteAvailabilityHours(userId);
+	}
+
+	@GetMapping(value = "/games/{userId}")
+	public Set<GameDTO> getGames(@PathVariable("userId") Long userId) {
 		return userService.getUserGames(userId);
 	}
-	@GetMapping(value = "/users")
-	public List<UserDTO> searchUsers(@RequestBody UserDTO users) {
-		return userService.findUserByParameters(users);
+
+	@GetMapping(value = "/search")
+	public List<UserDTO> searchUsers(
+			@RequestParam(name = "firstName") String firstName,
+			@RequestParam(name = "lastName") String lastName,
+			@RequestParam(name = "email") String email,
+			@RequestParam(name = "lifeMotto") String lifeMotto
+	) 
+	{
+		UserDTO searchUsersParams = new UserDTO();
+		searchUsersParams.setFirstName(firstName);
+		searchUsersParams.setLastName(lastName);
+		searchUsersParams.setEmail(email);
+		searchUsersParams.setLifeMotto(lifeMotto);
+		return userService.findUserByParameters(searchUsersParams);
 	}
 	
+	@ExceptionHandler(UserCouldNotBeFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public String userCouldNotBeFoundException(Exception e) {
+		LOGGER.error("An error has occurred: ", e);
+		return e.getMessage();
+	}
 
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public String userHandleException(Exception e) {
+		LOGGER.error("An error has occurred: ", e);
+		return e.getMessage();
+	}
 }
+
